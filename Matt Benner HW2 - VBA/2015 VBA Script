@@ -1,0 +1,47 @@
+Sub StockTicker():
+
+    ' Set initial variable
+  Dim Ticker As String
+
+  ' Set an initial variable for total volume/ticker
+  Dim TickerTotal As Double
+  TickerTotal = 0
+
+  ' Keep track of the location for each ticker in a summary table
+  Dim Summary_Table As Integer
+  Summary_Table = 2
+
+  ' Loop through all ticker dates
+  For i = 2 To 760192
+
+    ' Same ticker? if not...
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+      ' Ticker name
+      Ticker = Cells(i, 1).Value
+
+      ' Add to the ticker Total
+      TickerTotal = TickerTotal + Cells(i, 7).Value
+
+      ' Print the ticker symbol in Summary Table
+      Range("J" & Summary_Table).Value = Ticker
+
+      ' Print volume amount to the Summary Table
+      Range("K" & Summary_Table).Value = TickerTotal
+
+      ' Add one to the summary table row
+      Summary_Table = Summary_Table + 1
+      
+      ' Reset the ticker total
+      TickerTotal = 0
+
+    ' If the cell following row is the same brand...
+    Else
+
+      ' Add to the ticker Total
+      TickerTotal = TickerTotal + Cells(i, 7).Value
+
+    End If
+
+  Next i
+End Sub
